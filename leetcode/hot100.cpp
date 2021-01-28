@@ -391,5 +391,65 @@ public:
     }
 };
 
+class merge_two_sorted_lists {
+    // https://leetcode-cn.com/problems/merge-two-sorted-lists/
+public:
+    struct ListNode
+    {
+        int val;
+        ListNode *next;
+        ListNode() : val(0), next(nullptr) {}
+        ListNode(int x) : val(x), next(nullptr) {}
+        ListNode(int x, ListNode *next) : val(x), next(next) {}
+    };
+
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if (l2 == nullptr) return l1;
+        if (l1 == nullptr) return l2;
+        ListNode *h1 = new ListNode(0, l1);
+        ListNode *tmp;
+        ListNode *p1 = h1;
+        ListNode *n1=l1, *n2=l2;
+        while (n1 && n2) {
+            while (n2 && n2->val < n1->val) {
+                p1->next = n2;
+                tmp = n2->next;
+                p1 = n2;
+                n2->next = n1;
+                n2 = tmp;
+            }
+            if (!n2)
+                return h1->next;
+            while (n1 && n1->val <= n2->val) {
+                p1 = n1;
+                n1 = n1->next;
+            }
+        }
+        if (!n1)
+            p1->next = n2;
+        
+        return h1->next;
+    }
+
+    void dump(ListNode *l) {
+        while (l) {
+            cout << l->val << " ";
+            if (l == l->next) {
+                cout << "loop!";
+                return;
+            }
+            l = l->next;
+        }
+        cout << endl;
+    }
+
+    void test() {
+        ListNode *l1 = new ListNode(1, new ListNode(2, new ListNode(4)));
+        ListNode *l2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+        dump(mergeTwoLists(l1, l2));
+    }
+};
+
 void hot100::test() {
+    merge_two_sorted_lists().test();
 }
