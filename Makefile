@@ -3,8 +3,8 @@ SRCS+=$(wildcard leetcode/*.cpp)
 SRCS+=$(wildcard utils/*.cpp)
 OBJS := $(SRCS:%.c=%.o)
 OBJS := $(OBJS:%.cpp=%.o)
-
-CPPFLAGS := -Iinclude
+CFLAGS += -g
+CPPFLAGS += -Iinclude -g
 EXE := a.out
 
 all: $(OBJS)
