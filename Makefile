@@ -5,10 +5,14 @@ OBJS := $(SRCS:%.c=%.o)
 OBJS := $(OBJS:%.cpp=%.o)
 
 CPPFLAGS := -Iinclude
+EXE := a.out
 
 all: $(OBJS)
 	@echo objs: $(OBJS)
-	$(CXX) -o a.exe ${OBJS}
+	$(CXX) -o $(EXE) ${OBJS}
+
+clean:
+	$(RM) $(OBJS) $(EXE)
 
 %.o:%.cpp
 	$(CXX) -o $@ -c $< $(CPPFLAGS)
