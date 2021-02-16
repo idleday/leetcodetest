@@ -450,6 +450,31 @@ public:
     }
 };
 
+class generate_parentheses {
+    // https://leetcode-cn.com/problems/generate-parentheses/
+public:
+    vector<string> generateParenthesesHelper(string prefix, int nl, int nr) {
+        if (nr == 0) {
+            vector<string> v;
+            v.push_back(prefix);
+            return v;
+        }
+        if (nl == nr) {
+            return generateParenthesesHelper(prefix+"(", nl-1, nr);
+        }
+        if (nl == 0) {
+            return generateParenthesesHelper(prefix+")", nl, nr-1);
+        }
+        vector<string> v1 = generateParenthesesHelper(prefix+"(", nl-1, nr);
+        vector<string> v2 = generateParenthesesHelper(prefix+")", nl, nr-1);
+        v1.insert(v1.end(), v2.begin(), v2.end());
+        return v1;
+    }
+    vector<string> generateParenthesis(int n) {
+        return generateParenthesesHelper("", n, n);
+    }
+};
+
 void hot100::test() {
     merge_two_sorted_lists().test();
 }
